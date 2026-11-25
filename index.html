@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>ချော့မယ်နော် 🥺💕</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Myanmar:wght@400;600;700&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+
+    body {
+      min-height: 100dvh;
+      width: 100%;
+      background: linear-gradient(160deg, #1a1025 0%, #2d163b 45%, #4a1c40 100%);
+      color: #fff;
+      font-family: 'Noto Sans Myanmar', 'Quicksand', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+      padding: 18px;
+    }
+
+    .bg-orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(70px);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .orb-1 {
+      width: 240px;
+      height: 240px;
+      background: rgba(255, 105, 180, 0.25);
+      top: -40px;
+      left: -40px;
+    }
+    .orb-2 {
+      width: 260px;
+      height: 260px;
+      background: rgba(138, 120, 255, 0.22);
+      bottom: -50px;
+      right: -50px;
+    }
+
+    .music-toggle {
+      position: fixed;
+      top: 14px;
+      right: 14px;
+      z-index: 1000;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: #fff;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+    }
+
+    .container {
+      width: 100%;
+      max-width: 410px;
+      min-height: 580px;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 28px;
+      padding: 24px 20px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .screen {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      flex: 1;
+      justify-content: space-between;
+      animation: fadeSlide 0.35s ease;
+    }
+
+    .screen.active {
+      display: flex;
+    }
+
+    @keyframes fadeSlide {
+      from {
+        opacity: 0;
+        transform: translateY(14px) scale(0.98);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .step-badge {
+      font-size: 12px;
+      letter-spacing: 0.5px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.12);
+      color: #ffd6ec;
+      border: 1px solid rgba(255, 182, 217, 0.25);
+    }
+
+    .anime-box {
+      width: 195px;
+      height: 195px;
+      border-radius: 24px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.14), rgba(255,255,255,0.04));
+      border: 1px solid rgba(255,255,255,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 10px auto;
+      box-shadow: 0 12px 28px rgba(0,0,0,0.25);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .anime-box svg,
+    .anime-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .title {
+      font-size: 21px;
+      font-weight: 700;
+      line-height: 1.45;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      font-size: 14.5px;
+      line-height: 1.7;
+      color: #f3dcf0;
+      min-height: 52px;
+    }
+
+    .btn-group {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 18px;
+      position: relative;
+      min-height: 118px;
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      position: relative;
+      min-height: 54px;
+    }
+
+    button {
+      border: none;
+      outline: none;
+      cursor: pointer;
+      font-family: 'Noto Sans Myanmar', 'Quicksand', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      border-radius: 16px;
+      padding: 13px 22px;
+      transition: transform 0.18s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    button:active {
+      transform: scale(0.96);
+    }
+
+    .btn-primary {
+      width: 100%;
+      background: linear-gradient(135deg, #ff5ca8, #ff85b3);
+      color: #fff;
+      box-shadow: 0 10px 24px rgba(255, 92, 168, 0.4);
+    }
+
+    .btn-yes {
+      flex: 1;
+      background: linear-gradient(135deg, #ff4d94, #ff80ab);
+      color: #fff;
+      box-shadow: 0 8px 20px rgba(255, 77, 148, 0.4);
+    }
+
+    .btn-no {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.16);
+      color: #ffdbe9;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      position: relative;
+      z-index: 20;
+    }
+
+    .btn-no.runaway {
+      position: fixed !important;
+      flex: none;
+      width: auto;
+      min-width: 96px;
+      z-index: 999;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+    }
+
+    .dodge-hint {
+      font-size: 12px;
+      color: #ffb3d9;
+      min-height: 18px;
+      margin-top: 4px;
+    }
+
+    .progress-wrap {
+      width: 100%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 999px;
+      overflow: hidden;
+      margin-top: 14px;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #ff69b4, #ffd166);
+      transition: width 0.35s ease;
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-orb orb-1"></div>
+  <div class="bg-orb orb-2"></div>
+
+  <!-- Music Mute / Unmute Button -->
+  <button class="music-toggle" id="musicBtn" onclick="toggleMusic()" title="သီချင်း ပိတ်/ဖွင့်">🔊</button>
+
+  <!-- ကိုယ့် သီချင်း MP3 file နာမည်ကို song.mp3 လို့ Repo ထဲ တင်ထားပါ (သို့မဟုတ် src="..." မှာ MP3 Link ထည့်ပါ) -->
+  <audio id="bgMusic" src="song.mp3" loop preload="auto"></audio>
+
+  <div class="container">
+    <!-- INTRO SCREEN -->
+    <div id="introScreen" class="screen active">
+      <div class="step-badge">💌 Special Apology &amp; Love</div>
+
+      <div class="anime-box">
+        <svg viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="hairGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#2c2342"/>
+              <stop offset="100%" stop-color="#171126"/>
+            </linearGradient>
+            <linearGradient id="skinGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#ffe7dc"/>
+              <stop offset="100%" stop-color="#f7cbb8"/>
+            </linearGradient>
+          </defs>
+          <path d="M52 95 Q55 32 110 32 Q165 32 168 95 L176 168 Q145 155 110 165 Q75 155 44 168 Z" fill="url(#hairGrad)"/>
+          <path d="M52 215 Q58 168 110 166 Q162 168 168 215 Z" fill="#6b5ce7"/>
+          <path d="M88 168 L110 194 L132 168" fill="none" stroke="#a29bfe" stroke-width="4" stroke-linecap="round"/>
+          <path d="M65 88 Q65 54 110 54 Q155 54 155 88 Q155 138 110 156 Q65 138 65 88 Z" fill="url(#skinGrad)"/>
+          <path d="M74 92 Q86 84 96 90" fill="none" stroke="#2c2342" stroke-width="3" stroke-linecap="round"/>
+          <path d="M146 92 Q134 84 124 90" fill="none" stroke="#2c2342" stroke-width="3" stroke-linecap="round"/>
+          <ellipse cx="86" cy="105" rx="11" ry="13" fill="#231942"/>
+          <ellipse cx="134" cy="105" rx="11" ry="13" fill="#231942"/>
+          <circle cx="82" cy="100" r="4.2" fill="#fff"/>
+          <circle cx="130" cy="100" r="4.2" fill="#fff"/>
+          <circle cx="90" cy="110" r="2" fill="#b8c0ff"/>
+          <circle cx="138" cy="110" r="2" fill="#b8c0ff"/>
+          <path d="M72 116 Q70 125 74 128 Q78 125 76 116 Z" fill="#72efdd" opacity="0.85"/>
+          <ellipse cx="74" cy="120" rx="8" ry="4.5" fill="#ff758f" opacity="0.45"/>
+          <ellipse cx="146" cy="120" rx="8" ry="4.5" fill="#ff758f" opacity="0.45"/>
+          <path d="M101 134 Q110 127 119 134" fill="none" stroke="#b56576" stroke-width="3" stroke-linecap="round"/>
+          <path d="M64 90 Q72 52 110 50 Q148 52 156 90 Q145 72 134 92 Q122 68 110 95 Q98 68 86 92 Q75 72 64 90 Z" fill="url(#hairGrad)"/>
+        </svg>
+      </div>
+
+      <div>
+        <h1 class="title">စိတ်ဆိုးနေသေးလားဟင်... 🥺</h1>
+        <p class="subtitle">
+          မင်းလေး စိတ်ကောက်နေရင် ကိုယ်တကယ် နေလို့မကောင်းလို့ ဒါလေး လုပ်ထားတာပါ။ ခဏလောက်ပဲ ကြည့်ပေးပါနော်။
+        </p>
+      </div>
+
+      <div class="btn-group">
+        <button class="btn-primary" onclick="startStory()">ချော့စာလေး ဖွင့်ကြည့်မယ် 🎵💕</button>
+      </div>
+    </div>
+
+    <!-- 6 HOME / STORY PAGES SCREEN -->
+    <div id="storyScreen" class="screen">
+      <div style="width:100%;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <span class="step-badge" id="pageIndicator">Home 1 / 6</span>
+          <span style="font-size:12px; color:#f3dcf0;" id="moodTag">မျက်နှာငယ်လေး 🥺</span>
+        </div>
+        <div class="progress-wrap">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+      </div>
+
+      <div class="anime-box" id="storyAnimeBox"></div>
+
+      <div>
+        <h2 class="title" id="storyTitle"></h2>
+        <p class="subtitle" id="storyDesc"></p>
+      </div>
+
+      <div class="btn-group">
+        <div class="btn-row">
+          <button class="btn-yes" id="yesBtn" onclick="handleYes()">Yes 💖</button>
+          <button class="btn-no" id="noBtn">No 🙈</button>
+        </div>
+        <div class="dodge-hint" id="dodgeHint">No ခလုတ်ကို နှိပ်ကြည့်လေ... 😜</div>
+      </div>
+    </div>
+
+    <!-- FINAL SCREEN -->
+    <div id="endScreen" class="screen">
+      <div class="step-badge">🎉 ချော့လို့ အောင်မြင်သွားပြီ!</div>
+
+      <div class="anime-box">
+        <svg viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
+          <path d="M52 95 Q55 32 110 32 Q165 32 168 95 L176 168 Q145 155 110 165 Q75 155 44 168 Z" fill="#2c2342"/>
+          <path d="M52 215 Q58 168 110 166 Q162 168 168 215 Z" fill="#ff5ca8"/>
+          <path d="M65 88 Q65 54 110 54 Q155 54 155 88 Q155 138 110 156 Q65 138 65 88 Z" fill="#ffe7dc"/>
+          <path d="M75 104 Q86 93 97 104" fill="none" stroke="#231942" stroke-width="3.5" stroke-linecap="round"/>
+          <path d="M123 104 Q134 93 145 104" fill="none" stroke="#231942" stroke-width="3.5" stroke-linecap="round"/>
+          <ellipse cx="74" cy="118" rx="9" ry="5" fill="#ff4d6d" opacity="0.5"/>
+          <ellipse cx="146" cy="118" rx="9" ry="5" fill="#ff4d6d" opacity="0.5"/>
+          <path d="M95 126 Q110 142 125 126 Z" fill="#ff4d6d"/>
+          <path d="M64 90 Q72 52 110 50 Q148 52 156 90 Q145 72 134 92 Q122 68 110 95 Q98 68 86 92 Q75 72 64 90 Z" fill="#2c2342"/>
+          <path d="M168 48 C168 38 182 38 182 48 C182 58 168 66 168 66 C168 66 154 58 154 48 C154 38 168 38 168 48 Z" fill="#ff4d94"/>
+        </svg>
+      </div>
+
+      <div>
+        <h2 class="title">ဟေး! ခွင့်လွှတ်ပေးလို့ ကျေးဇူးအများကြီးတင်တယ် 🥰</h2>
+        <p class="subtitle">
+          နောက်ခါ မင်းလေး စိတ်မဆိုးအောင် ပိုဂရုစိုက်ပါ့မယ်။ အခုတော့ ပြုံးလိုက်တော့နော် ချစ်ဆုံးလေး! ✨
+        </p>
+      </div>
+
+      <div class="btn-group">
+        <button class="btn-primary" onclick="restartAll()">ပြန်ကြည့်မယ် 🔄</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const pages = [
+      {
+        tag: "မျက်နှာငယ်လေး 🥺",
+        title: "Home 1: ကိုယ် တောင်းပန်ပါတယ်နော်",
+        desc: "ကိုယ် အမှားလုပ်မိလို့ မင်းလေး စိတ်ညစ်သွားရင် တကယ်စိတ်မကောင်းပါဘူး။ ခွင့်လွှတ်ပေးမယ်မလားဟင်?",
+        yesText: "Yes, နည်းနည်းခွင့်လွှတ်မယ် 🥺",
+        noText: "No, စိတ်ဆိုးသေးတယ် 😤",
+        mood: "sad"
+      },
+      {
+        tag: "မျက်ရည်ဝဲနေပြီ 😢",
+        title: "Home 2: မင်းလေး စိတ်ဆိုးနေရင် ဘာမှလုပ်မရဘူး",
+        desc: "မျက်နှာငယ်လေးနဲ့ ဒီမှာ စောင့်နေရတာ ကြာပြီကွာ။ ကိုယ့်ကို စိတ်မကောက်တော့ဘူးလို့ ဖြေပေးပါလား?",
+        yesText: "Yes, စိတ်မကောက်တော့ပါဘူး 💕",
+        noText: "No, ချော့ဦး 🙄",
+        mood: "crying"
+      },
+      {
+        tag: "အသနားခံနေတယ် 🙏",
+        title: "Home 3: မုန့်ဝယ်ကျွေးမယ်လေ",
+        desc: "မင်းလေး ကြိုက်တဲ့ မုန့်/အစားအသောက် ဝယ်ကျွေးမယ်၊ အလိုလိုက်ပေးမယ်။ အဆင်ပြေသွားပြီလား?",
+        yesText: "Yes, မုန့်ကျွေးရင် ပြီးရော 😋",
+        noText: "No, မလုံလောက်သေးဘူး 😜",
+        mood: "plead"
+      },
+      {
+        tag: "ရင်ခုန်နေတယ် 💓",
+        title: "Home 4: မင်းပြုံးတာလေး ပြန်မြင်ချင်ပြီ",
+        desc: "မင်းလေး မျက်နှာတည်နေတာထက် ပြုံးနေတာလေးကိုပဲ ကိုယ် အမြဲမြင်ချင်တာပါ။ ဟုတ်တယ်မလား?",
+        yesText: "Yes, ပြုံးပြလိုက်ပြီ 😊",
+        noText: "No, ရှက်တယ် 🙈",
+        mood: "shy"
+      },
+      {
+        tag: "ကတိပေးတယ် 🤝",
+        title: "Home 5: နောက်ထပ် ထပ်မဖြစ်စေရဘူး",
+        desc: "ဒီတစ်ခါ သင်ခန်းစာရသွားပြီ၊ မင်းလေး စိတ်ထိခိုက်အောင် ဘယ်တော့မှ ထပ်မလုပ်တော့ပါဘူးနော်။ ယုံတယ်မလား?",
+        yesText: "Yes, ယုံပေးမယ် 💖",
+        noText: "No, စဉ်းစားဦးမယ် 🤔",
+        mood: "promise"
+      },
+      {
+        tag: "နောက်ဆုံးအဆင့်လေး 🌸",
+        title: "Home 6: ပြန်ချစ်ကြမယ်နော် ချစ်သူလေး",
+        desc: "အကုန်လုံး ပြီးသွားပြီဆိုတော့ ကိုယ့်ကို ခွင့်လွှတ်ပြီး ချစ်ပေးတော့မယ် မဟုတ်လား?",
+        yesText: "Yes! ပြန်ချစ်ပြီ ❤️",
+        noText: "No! မရဘူး 😝",
+        mood: "love"
+      }
+    ];
+
+    const dodgeMessages = [
+      "ဟာ... No ခလုတ်က ပြေးသွားပြီ 🏃‍♂️💨",
+      "အဲဒီ No ကို နှိပ်လို့မရဘူးလေ 😜",
+      "Yes ကိုပဲ နှိပ်လိုက်ပါတော့ ချစ်လေးရယ် 🥺",
+      "ပြေးပြန်ပြီ! ဖမ်းလို့မမိဘူးနော် 🙈",
+      "စိတ်ဆိုးပြေတော့လေ... No က ထွက်ပြေးနေပြီ 💕"
+    ];
+
+    let currentIndex = 0;
+    let dodgeCount = 0;
+
+    const bgMusic = document.getElementById("bgMusic");
+    const musicBtn = document.getElementById("musicBtn");
+    const introScreen = document.getElementById("introScreen");
+    const storyScreen = document.getElementById("storyScreen");
+    const endScreen = document.getElementById("endScreen");
+    const pageIndicator = document.getElementById("pageIndicator");
+    const moodTag = document.getElementById("moodTag");
+    const progressBar = document.getElementById("progressBar");
+    const storyAnimeBox = document.getElementById("storyAnimeBox");
+    const storyTitle = document.getElementById("storyTitle");
+    const storyDesc = document.getElementById("storyDesc");
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const dodgeHint = document.getElementById("dodgeHint");
+
+    function playBgMusic() {
+      if (!bgMusic) return;
+      bgMusic.play().then(() => {
+        musicBtn.textContent = "🔊";
+      }).catch(() => {
+        // File မရှိသေးရင် (သို့) Browser က တားရင် error မတက်အောင် ငြိမ်ထားမယ်
+      });
+    }
+
+    function toggleMusic() {
+      if (!bgMusic) return;
+      if (bgMusic.paused) {
+        bgMusic.play().then(() => {
+          musicBtn.textContent = "🔊";
+        }).catch(() => {});
+      } else {
+        bgMusic.pause();
+        musicBtn.textContent = "🔇";
+      }
+    }
+
+    function renderAnimeSvg(mood) {
+      const tear = (mood === "crying" || mood === "sad" || mood === "plead")
+        ? `<path d="M71 116 Q68 127 73 131 Q78 127 75 116 Z" fill="#64dfdf"/>
+           <path d="M149 116 Q152 127 147 131 Q142 127 145 116 Z" fill="#64dfdf"/>`
+        : "";
+
+      const mouth = (mood === "shy" || mood === "love")
+        ? `<path d="M102 132 Q110 139 118 132" fill="none" stroke="#b56576" stroke-width="3" stroke-linecap="round"/>`
+        : `<path d="M100 135 Q110 127 120 135" fill="none" stroke="#b56576" stroke-width="3" stroke-linecap="round"/>`;
+
+      return `
+        <svg viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
+          <path d="M52 95 Q55 32 110 32 Q165 32 168 95 L176 168 Q145 155 110 165 Q75 155 44 168 Z" fill="#2c2342"/>
+          <path d="M52 215 Q58 168 110 166 Q162 168 168 215 Z" fill="#5e60ce"/>
+          <path d="M65 88 Q65 54 110 54 Q155 54 155 88 Q155 138 110 156 Q65 138 65 88 Z" fill="#ffe7dc"/>
+          <path d="M74 91 Q86 83 96 89" fill="none" stroke="#2c2342" stroke-width="3" stroke-linecap="round"/>
+          <path d="M146 91 Q134 83 124 89" fill="none" stroke="#2c2342" stroke-width="3" stroke-linecap="round"/>
+          <ellipse cx="86" cy="105" rx="11" ry="13" fill="#231942"/>
+          <ellipse cx="134" cy="105" rx="11" ry="13" fill="#231942"/>
+          <circle cx="82" cy="100" r="4.2" fill="#fff"/>
+          <circle cx="130" cy="100" r="4.2" fill="#fff"/>
+          ${tear}
+          <ellipse cx="74" cy="120" rx="8.5" ry="4.5" fill="#ff758f" opacity="0.5"/>
+          <ellipse cx="146" cy="120" rx="8.5" ry="4.5" fill="#ff758f" opacity="0.5"/>
+          ${mouth}
+          <path d="M64 90 Q72 52 110 50 Q148 52 156 90 Q145 72 134 92 Q122 68 110 95 Q98 68 86 92 Q75 72 64 90 Z" fill="#2c2342"/>
+        </svg>
+      `;
+    }
+
+    function resetNoButtonPosition() {
+      noBtn.classList.remove("runaway");
+      noBtn.style.left = "";
+      noBtn.style.top = "";
+    }
+
+    function loadPage(index) {
+      const p = pages[index];
+      pageIndicator.textContent = `Home ${index + 1} / ${pages.length}`;
+      moodTag.textContent = p.tag;
+      progressBar.style.width = `${((index + 1) / pages.length) * 100}%`;
+      storyAnimeBox.innerHTML = renderAnimeSvg(p.mood);
+      storyTitle.textContent = p.title;
+      storyDesc.textContent = p.desc;
+      yesBtn.textContent = p.yesText;
+      noBtn.textContent = p.noText;
+      dodgeHint.textContent = "No ခလုတ်ကို နှိပ်ကြည့်လေ... 😜";
+      resetNoButtonPosition();
+    }
+
+    function startStory() {
+      playBgMusic();
+      currentIndex = 0;
+      dodgeCount = 0;
+      introScreen.classList.remove("active");
+      endScreen.classList.remove("active");
+      storyScreen.classList.add("active");
+      loadPage(0);
+    }
+
+    function handleYes() {
+      playBgMusic();
+      if (currentIndex < pages.length - 1) {
+        currentIndex++;
+        loadPage(currentIndex);
+      } else {
+        resetNoButtonPosition();
+        storyScreen.classList.remove("active");
+        endScreen.classList.add("active");
+      }
+    }
+
+    function dodgeNoButton(e) {
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      noBtn.classList.add("runaway");
+
+      const btnRect = noBtn.getBoundingClientRect();
+      const btnW = btnRect.width || 110;
+      const btnH = btnRect.height || 48;
+      const pad = 16;
+
+      const maxX = Math.max(pad, window.innerWidth - btnW - pad);
+      const maxY = Math.max(pad, window.innerHeight - btnH - pad);
+
+      let randomX = pad + Math.random() * (maxX - pad);
+      let randomY = pad + Math.random() * (maxY - pad);
+
+      const yesRect = yesBtn.getBoundingClientRect();
+      if (
+        randomX < yesRect.right + 12 &&
+        randomX + btnW > yesRect.left - 12 &&
+        randomY < yesRect.bottom + 12 &&
+        randomY + btnH > yesRect.top - 12
+      ) {
+        randomY = randomY > window.innerHeight / 2 ? pad + 20 : maxY - 20;
+      }
+
+      noBtn.style.left = `${Math.round(randomX)}px`;
+      noBtn.style.top = `${Math.round(randomY)}px`;
+
+      dodgeHint.textContent = dodgeMessages[dodgeCount % dodgeMessages.length];
+      dodgeCount++;
+    }
+
+    noBtn.addEventListener("touchstart", dodgeNoButton, { passive: false });
+    noBtn.addEventListener("pointerenter", dodgeNoButton);
+    noBtn.addEventListener("click", dodgeNoButton);
+
+    function restartAll() {
+      resetNoButtonPosition();
+      endScreen.classList.remove("active");
+      introScreen.classList.add("active");
+    }
+  </script>
+</body>
+  </html>
+  
